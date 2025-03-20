@@ -18,7 +18,7 @@ jobs:
           persist-credentials: false
 
       - name: build
-        run: make all libctru
+        run: make -C libctru
 
       - name: Upload binary
         uses: actions/upload-artifact@v4

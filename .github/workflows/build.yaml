@@ -20,10 +20,10 @@ jobs:
       - name: build
         run: make -C libctru
 
-    - name: Upload binary
-      uses: actions/upload-artifact@v4
-      with:
-        name: Build
-        path: |
-          lib/libctru.a
-          lib/libctrud.a
+      - name: Upload binary
+        uses: actions/upload-artifact@v4
+        with:
+          name: Build
+          path: |
+            lib/libctru.a
+            lib/libctrud.a

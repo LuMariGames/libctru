@@ -25,5 +25,5 @@ jobs:
         with:
           name: Build
           path: |
-            libctru.a
-            libctrud.a
+            libctru/libctru.a
+            libctru/libctrud.a

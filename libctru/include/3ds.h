@@ -82,6 +82,7 @@ extern "C" {
 #include <3ds/services/y2r.h>
 #include <3ds/services/mcuhwc.h>
 #include <3ds/services/cdcchk.h>
+#include <3ds/services/dlpclnt.h>
 
 #include <3ds/gpu/gx.h>
 #include <3ds/gpu/gpu.h>

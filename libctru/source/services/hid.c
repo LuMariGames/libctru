@@ -192,7 +192,7 @@ void hidScanInput(void)
 
 	Id = hidSharedMem[42 + 4];//Touch-screen
 	if(Id>7)Id=7;
-	for (int i = 0; i <= Id; ++i) {
+	for (int i = 0; i <= 7; ++i) {
 		if(hidCheckSectionUpdateTime(&hidSharedMem[42], i)==0) {
 			tPos[i] = *(touchPosition*)&hidSharedMem[42 + 8 + i*2];
 			if (hidSharedMem[42 + 8 + i*2 + 1])

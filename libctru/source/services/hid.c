@@ -23,10 +23,11 @@ vu32* hidSharedMem;
 
 static u32 kOld, kHeld, kDown, kUp, kRepeat;
 static u32 kDelay = 30, kInterval = 15, kCount = 30;
-static touchPosition tPos;
+static touchPosition tPos[8];
 static circlePosition cPos;
 static accelVector aVec;
 static angularRate gRate;
+static u8 cnt = 0;
 
 static int hidRefCount;
 
@@ -172,7 +173,7 @@ u32 hidCheckSectionUpdateTime(vu32 *sharedmem_section, u32 id)
 void hidScanInput(void)
 {
 	u32 Id=0;
-
+	cnt = 0;
 	kOld = kHeld;
 	irrstScanInput();
 
@@ -193,7 +194,7 @@ void hidScanInput(void)
 	if(Id>7)Id=7;
 	for (int i = 0; i <= Id; ++i) {
 		if(hidCheckSectionUpdateTime(&hidSharedMem[42], i)==0) {
-			tPos = *(touchPosition*)&hidSharedMem[42 + 8 + i*2];
+			tPos[i] = *(touchPosition*)&hidSharedMem[42 + 8 + i*2];
 			if (hidSharedMem[42 + 8 + i*2 + 1])
 				kHeld |= KEY_TOUCH;
 		}
@@ -253,7 +254,10 @@ u32 hidKeysUp(void)
 
 void hidTouchRead(touchPosition* pos)
 {
-	if (pos) *pos = tPos;
+	if (pos) {
+		*pos = tPos[cnt];
+		++cnt;
+	}
 }
 
 void hidCircleRead(circlePosition* pos)

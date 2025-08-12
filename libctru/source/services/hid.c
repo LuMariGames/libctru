@@ -184,19 +184,19 @@ void hidScanInput(void)
 
 	Id = hidSharedMem[4];//PAD / circle-pad
 	if(Id>7)Id=7;
-	if(hidCheckSectionUpdateTime(hidSharedMem, Id)==0)
-	{
+	if(hidCheckSectionUpdateTime(hidSharedMem, Id)==0) {
 		kHeld = hidSharedMem[10 + Id*4];
 		cPos = *(circlePosition*)&hidSharedMem[10 + Id*4 + 3];
 	}
 
 	Id = hidSharedMem[42 + 4];//Touch-screen
 	if(Id>7)Id=7;
-	if(hidCheckSectionUpdateTime(&hidSharedMem[42], Id)==0)
-	{
-		tPos = *(touchPosition*)&hidSharedMem[42 + 8 + Id*2];
-		if (hidSharedMem[42 + 8 + Id*2 + 1])
-			kHeld |= KEY_TOUCH;
+	for (int i = 0; i <= Id; ++i) {
+		if(hidCheckSectionUpdateTime(&hidSharedMem[42], i)==0) {
+			tPos = *(touchPosition*)&hidSharedMem[42 + 8 + i*2];
+			if (hidSharedMem[42 + 8 + i*2 + 1])
+				kHeld |= KEY_TOUCH;
+		}
 	}
 
 	kHeld |= irrstKeysHeld();
@@ -204,16 +204,13 @@ void hidScanInput(void)
 	kDown = (~kOld) & kHeld;
 	kUp = kOld & (~kHeld);
 
-	if (kDelay)
-	{
-		if (kHeld != kOld)
-		{
+	if (kDelay) {
+		if (kHeld != kOld) {
 			kCount = kDelay;
 			kRepeat = kDown;
 		}
 
-		if (--kCount == 0)
-		{
+		if (--kCount == 0) {
 			kCount = kInterval;
 			kRepeat = kHeld;
 		}
@@ -221,15 +218,13 @@ void hidScanInput(void)
 
 	Id = hidSharedMem[66 + 4];//Accelerometer
 	if(Id>7)Id=7;
-	if(hidCheckSectionUpdateTime(&hidSharedMem[66], Id)==0)
-	{
+	if(hidCheckSectionUpdateTime(&hidSharedMem[66], Id)==0) {
 		aVec = ((accelVector*)&hidSharedMem[66 + 8])[Id];
 	}
 
 	Id = hidSharedMem[86 + 4];//Gyroscope
 	if(Id>31)Id=31;
-	if(hidCheckSectionUpdateTime(&hidSharedMem[86], Id)==0)
-	{
+	if(hidCheckSectionUpdateTime(&hidSharedMem[86], Id)==0) {
 		gRate = ((angularRate*)&hidSharedMem[86 + 8])[Id];
 	}
 }

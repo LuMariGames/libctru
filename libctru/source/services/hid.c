@@ -159,12 +159,11 @@ u32 hidCheckSectionUpdateTime(vu32 *sharedmem_section, u32 id)
 {
 	s64 tick0=0, tick1=0;
 
-	if(id==0)
-	{
+	if(id==0) {
 		tick0 = *((u64*)&sharedmem_section[0]);
 		tick1 = *((u64*)&sharedmem_section[2]);
 
-		if(tick0==tick1 || tick0<0 || tick1<0)return 1;
+		if (tick0==tick1 || tick0<0 || tick1<0) return 1;
 	}
 
 	return 0;
@@ -173,7 +172,7 @@ u32 hidCheckSectionUpdateTime(vu32 *sharedmem_section, u32 id)
 void hidScanInput(void)
 {
 	u32 Id=0;
-	cnt = 1;
+	cnt = 7;
 	kOld = kHeld;
 	irrstScanInput();
 
@@ -184,18 +183,18 @@ void hidScanInput(void)
 	memset(&gRate, 0, sizeof(angularRate));
 
 	Id = hidSharedMem[4];//PAD / circle-pad
-	if(Id>7)Id=7;
-	if(hidCheckSectionUpdateTime(hidSharedMem, Id)==0) {
+	if (Id>7)Id=7;
+	if (hidCheckSectionUpdateTime(hidSharedMem, Id)==0) {
 		kHeld = hidSharedMem[10 + Id*4];
 		cPos = *(circlePosition*)&hidSharedMem[10 + Id*4 + 3];
 	}
 
 	Id = hidSharedMem[42 + 4];//Touch-screen
-	if(Id>7)Id=7;
+	if (Id>7)Id=7;
 	for (int i = 7; i <= 7; ++i) {
 		if(hidCheckSectionUpdateTime(&hidSharedMem[42], i)==0) {
 			tPos[i] = *(touchPosition*)&hidSharedMem[42 + 8 + i*2];
-			if (hidSharedMem[42 + 8 + 1]) kHeld |= KEY_TOUCH;
+			if (hidSharedMem[42 + 8 + i*2 + 1]) kHeld |= KEY_TOUCH;
 		}
 	}
 

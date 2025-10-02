@@ -13,9 +13,15 @@ jobs:
       image: 'devkitpro/devkitarm'
 
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v4
         with:
           persist-credentials: false
 
       - name: build
         run: make -C libctru
+      - name: Upload binary
+        uses: actions/upload-artifact@v4
+        with:
+          name: Build
+          path: |
+            libctru/lib/libctru.a

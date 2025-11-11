@@ -471,11 +471,11 @@ static bool ndspFindAndLoadComponent(void)
 	// Try loading the DSP component from the filesystem
 	do
 	{
-		static const char dsp_filename[] = "/3ds/dspfirm.cdc";
+		static const char dsp_filename[] = "/dsp/dspfirm.cdc";
 		FS_Path archPath = { PATH_EMPTY, 1, "" };
 		FS_Path filePath = { PATH_ASCII, sizeof(dsp_filename), dsp_filename };
 
-		rc = FSUSER_OpenFileDirectly(&rsrc, ARCHIVE_SDMC, archPath, filePath, FS_OPEN_READ, 0);
+		rc = FSUSER_OpenFileDirectly(&rsrc, ARCHIVE_ROMFS, archPath, filePath, FS_OPEN_READ, 0);
 		if (R_FAILED(rc)) break;
 
 		u64 size = 0;

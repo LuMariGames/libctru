@@ -37,9 +37,8 @@ INCLUDES	:=	include
 #---------------------------------------------------------------------------------
 ARCH	:=	-march=armv6k -mtune=mpcore -mfloat-abi=hard -mtp=soft
 
-CFLAGS	:=	-g -Wall -Werror -mword-relocations \
-			-ffunction-sections \
-			-fdata-sections \
+CFLAGS	:=	-g -O3 -Wall -Werror -mword-relocations \
+			-ffunction-sections -fdata-sections \
 			$(ARCH) \
 			$(BUILD_CFLAGS)
 

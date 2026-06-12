@@ -153,8 +153,8 @@ void gfxInit(GSPGPU_FramebufferFormat topFormat, GSPGPU_FramebufferFormat bottom
 	gfxPresentFramebuffer(GFX_BOTTOM, 0, false);
 
 	// Wait for VBlank and turn the LCD on
+	GSPGPU_SetLcdForceBlack(0x1);
 	gspWaitForVBlank();
-	GSPGPU_SetLcdForceBlack(0x0);
 }
 
 void gfxInitDefault(void)

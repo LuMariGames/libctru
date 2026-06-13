@@ -471,7 +471,7 @@ static bool ndspFindAndLoadComponent(void)
 	// Try loading the DSP component from the filesystem
 	do
 	{
-		static const char dsp_filename[] = "/dsp/dspfirm.cdc";
+		static const char dsp_filename[] = "/3ds/dspfirm.cdc";
 		FS_Path archPath = { PATH_EMPTY, 1, "" };
 		FS_Path filePath = { PATH_ASCII, sizeof(dsp_filename), dsp_filename };
 
